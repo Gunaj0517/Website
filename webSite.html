@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essentials@Gunda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Orbitron:wght@500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="webSite.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <h1 onclick="location.reload();" id="heading">Gunda😈</h1>
+    <div id="navBar"> 
+        <span id="logoText" onclick="location.reload();">Gunda.in</span>
+        <div id="searchContainer">
+            <input type="text" placeholder="Search 🔎">
+        </div>
+        <div id="navItems">
+            <button onclick="location.reload();">Home</button>
+            <select id="category">
+                <option value="0">Categories</option>
+                <option value="1">Stationary</option>
+                <option value="2">Clothing</option>
+                <option value="3">Furniture</option>
+                <option value="4">Food</option>
+                <option value="5">Beverages</option>
+            </select>
+            <button onclick="location.replace('signUp_IN.html')">Hello, Sign In</button> 
+        </div>
+    </div>
+
+    <article id="article1">
+        Welcome to Gunda😈 Hub, your go-to store for all daily life essentials. From household items and personal care to travel must-haves and gadgets, we provide high-quality products that make everyday living easier and more convenient. Shop smart, live better!
+    </article>
+
+    <div class="items" class="itemElements"></div>
+
+    <footer>
+        © 2025 Gunda.in - All Rights Reserved
+    </footer>
+
+    <script>
+        let itemsData = [
+            { imgSrc: "damn_foxy.jpg", name: "Foxy Plush", price: "$10" },
+            { imgSrc: "damn_foxy.jpg", name: "Golden Freddy", price: "$15" },
+            { imgSrc: "damn_foxy.jpg", name: "Bonnie Figure", price: "$12" },
+            { imgSrc: "damn_foxy.jpg", name: "Chica Mug", price: "$8" },
+            { imgSrc: "damn_foxy.jpg", name: "Springtrap Mask", price: "$20" },
+            { imgSrc: "damn_foxy.jpg", name: "Cupcake Light", price: "$5" }
+        ];
+        var container = document.querySelector(".items");
+        itemsData.forEach((item)=>{
+          let span=document.createElement("span");
+          span.classList.add("itemElements");
+
+          let img=document.createElement("img");
+          img.src=item.imgSrc;
+
+          let name=document.createElement("p");
+          name.textContent=item.name;
+
+          let price=document.createElement("p");
+          price.textContent=item.price;
+
+          let quantity=document.createElement("select");
+          for (let i = 1; i <= 5; i++) { 
+                let option = new Option(i, i);
+                quantity.appendChild(option);
+                quantity.id="itemsSelect";
+
+            }
+
+          span.appendChild(img);
+          span.appendChild(name);
+          span.appendChild(price);
+          span.appendChild(quantity);
+
+          container.appendChild(span);
+        });
+
+        document.querySelector("input").addEventListener("keypress", function(event) {
+            if(event.key === "Enter") {
+                alert("Searching for: " + this.value);
+            }
+        });
+
+    </script>
+</body>
+</html>
