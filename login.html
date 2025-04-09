@@ -95,63 +95,41 @@
     </style>
 </head>
 <body>
-    <div id="elementCore">
-        <h2>Sign Up to Thebackbenchershop</h2>
-        <p>Join the revolution of essentials.</p>
-        <form>
-            <input type="text" id="firstName" placeholder="First Name">
-            <input type="email" id="email" placeholder="Email">
-            <input type="password" id="password" placeholder="Password">
-            <input type="password" id="confirmPassword" placeholder="Confirm Password">
-            <div>
-                <button type="submit">Sign Up</button>
-                <button id="login" onclick="location.href='login.html'">Log In</button>
-            </div>
-        </form>
+    <div id="loginBox">
+      <h2>Login to Thebackbenchershop</h2>
+      <input type="email" id="email" placeholder="Email">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="login()">Login</button>
     </div>
+  
     <script>
-        document.querySelector("form").addEventListener("submit", async function(event) {
-            event.preventDefault();
-        
-            const name = document.getElementById("firstName").value.trim();
-            const email = document.getElementById("email").value.trim();
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirmPassword").value;
-        
-            if (!name || !email || !password || !confirmPassword) {
-                alert("Please fill all the fields.");
-                return;
-            }
-        
-            if (password !== confirmPassword) {
-                alert("Passwords do not match.");
-                return;
-            }
-        
-            try {
-                const res = await fetch(`http://localhost:3000/users?email=${email}`);
-                const existingUsers = await res.json();
-        
-                if (existingUsers.length > 0) {
-                    alert("User already exists. Please log in instead.");
-                    return;
-                }
-        
-                await fetch("http://localhost:3000/users", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ name, email, password })
-                });
-        
-                localStorage.setItem("user", name);
-                alert("Signup successful!");
-                window.location.href = "webSite.html";
-    
-            } catch (err) {
-                console.error("Error signing up:", err);
-                alert("Something went wrong. Please try again.");
-            }
-        });
-    </script>        
+      async function login() {
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+  
+        if (!email || !password) {
+          alert("Please enter both email and password.");
+          return;
+        }
+  
+        try {
+          const res = await fetch(`http://localhost:3000/users?email=${email}&password=${password}`);
+          const users = await res.json();
+  
+          if (users.length === 0) {
+            alert("Invalid email or password.");
+            return;
+          }
+  
+          // Save the user name in localStorage and redirect
+          localStorage.setItem("user", users[0].name);
+          alert("Login successful!");
+          window.location.href = "webSite.html";
+        } catch (err) {
+          console.error("Login error:", err);
+          alert("Something went wrong. Try again.");
+        }
+      }
+    </script>
 </body>
 </html>
